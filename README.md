@@ -53,7 +53,7 @@ npx cypress run
 - Matriz de 15 casos de prueba (funcionales, negativos, no funcionales y de usabilidad)
 - Reporte de bug simulado con formato profesional
 
-📁 Ver matriz completa en [`Matriz Casos de Pruebas`](funtional/Matriz_Casos_Prueba_MakersPay.xlsx) o su versión [Markdown](funtional/Matriz_Casos_Prueba_MakersPay.md)
+📁 Ver matriz completa en [`Matriz Casos de Pruebas`](https://docs.google.com/spreadsheets/d/1BJwB_y6H_mB_i49L_bTYy9WiWpclW_6N/edit?gid=1639835657#gid=1639835657) o su versión [Markdown](funtional/Matriz_Casos_Prueba_MakersPay.md)
 
 ---
 
