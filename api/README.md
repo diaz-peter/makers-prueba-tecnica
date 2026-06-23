@@ -35,4 +35,4 @@ npm install -g newman
 
 Podés consultar las capturas de pantalla, reportes generados y los resultados de las pruebas ejecutadas en la siguiente carpeta compartida:
 
-📂 [Carpeta de Evidencias en Google Drive](https://drive.google.com/drive/u/1/folders/1qxrMgNBJ4GLSV842wGexLDE4IAUbqDQk))
+📂 [Carpeta de Evidencias en Google Drive](https://drive.google.com/drive/u/1/folders/1qxrMgNBJ4GLSV842wGexLDE4IAUbqDQk)
