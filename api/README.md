@@ -30,3 +30,9 @@ La colección usa autenticación tipo **API Key** (header `x-api-key`) y necesit
 
 ```bash
 npm install -g newman
+
+## 📊 Evidencia de Ejecución
+
+Podés consultar las capturas de pantalla, reportes generados y los resultados de las pruebas ejecutadas en la siguiente carpeta compartida:
+
+📂 [Carpeta de Evidencias en Google Drive](https://drive.google.com/drive/folders/1qxrMgNBJ4GLSV842wGexLDE4IAUbqDQk?usp=sharing)
