@@ -1,0 +1,236 @@
+{
+  "info": {
+    "_postman_id": "cc57bc52-c3b2-41eb-b7c4-1a76c06319a4",
+    "name": "Pruebas Funcionales - ReqRes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "22601566",
+    "_collection_link": "https://go.postman.co/collection/22601566-cc57bc52-c3b2-41eb-b7c4-1a76c06319a4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Solicitud POST (Crear Usuario)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// 1. Validar código de estado 201\r",
+              "pm.test(\"Status code es 201 - Usuario Creado\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "// 2. Validar que la respuesta sea un JSON válido y tenga la estructura correcta\r",
+              "pm.test(\"La respuesta contiene name, job e id\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property('name', 'Test User');\r",
+              "    pm.expect(jsonData).to.have.property('job', 'Automation Engineer');\r",
+              "    pm.expect(jsonData).to.have.property('id');\r",
+              "});\r",
+              "\r",
+              "// 3. EXTRAER EL ID Y GUARDARLO EN UNA VARIABLE de la colección\r",
+              "const userId = pm.response.json().id;\r",
+              "pm.collectionVariables.set(\"new_user_id\", userId);\r",
+              "console.log(\"ID guardado exitosamente: \" + userId);\r",
+              "\r",
+              "pm.test(\"El tiempo de respuesta es menor a 500ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Test User\",\r\n    \"job\": \"Automation Engineer\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Solicitud GET (Validar Usuario Creado)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// 1. Verificar código de estado 200\r",
+              "pm.test(\"Status code es 200 - Usuario Encontrado\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "// 2. Verificar que los datos coincidan (Ejemplo adaptado a un ID real como el /users/2)\r",
+              "pm.test(\"El nombre y trabajo coinciden con lo esperado\", function () {\r",
+              "    const jsonData = pm.response.json().data;\r",
+              "    \r",
+              "    // Si estás usando /users/2 para simular el éxito:\r",
+              "    pm.expect(jsonData.first_name).to.eql(\"Janet\");     \r",
+              "    \r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST con Body Vacío (Validación de Esquema / Bad Request)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code es 400 o maneja el caso correctamente\", function () {\r",
+              "        pm.expect(pm.response.code).to.be.oneOf([400, 201]); \r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET a un usuario que no existe (404)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code es 404 para usuario inexistente\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/9999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "9999"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "value",
+        "value": "{{auth_secret_0b3q}}",
+        "type": "string"
+      },
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "auth_secret_0b3q",
+      "secret": true
+    },
+    {
+      "key": "new_user_id",
+      "value": ""
+    }
+  ]
+}
